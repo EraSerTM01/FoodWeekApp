@@ -80,7 +80,7 @@ class MyHomePage extends StatelessWidget {
                         // Navigate to menus page if authenticated
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MenusPage()),
+                          MaterialPageRoute(builder: (context) => const MenusPage()),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

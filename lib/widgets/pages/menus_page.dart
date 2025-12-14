@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenusPage extends StatefulWidget {
-  const MenusPage({Key? key});
+  const MenusPage({super.key});
 
   @override
   _MenusPageState createState() => _MenusPageState();
@@ -207,7 +207,7 @@ class _MenusPageState extends State<MenusPage> {
     );
   }
 
-  _launchURL(String url) async {
+  Future<void> _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
@@ -292,8 +292,8 @@ class _MenusPageState extends State<MenusPage> {
   }
 
   void _addNewMenu() {
-    TextEditingController _titleController = TextEditingController();
-    TextEditingController _startDateController = TextEditingController();
+    TextEditingController titleController = TextEditingController();
+    TextEditingController startDateController = TextEditingController();
     Map<String, Map<String, int>> plan = {};
 
     List<String> daysOfWeek = [
@@ -333,12 +333,12 @@ class _MenusPageState extends State<MenusPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       TextFormField(
-                        controller: _titleController,
+                        controller: titleController,
                         decoration: const InputDecoration(labelText: 'Title'),
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
-                        controller: _startDateController,
+                        controller: startDateController,
                         readOnly: true,
                         decoration:
                             const InputDecoration(labelText: 'Start Date'),
@@ -351,7 +351,7 @@ class _MenusPageState extends State<MenusPage> {
                           );
                           if (pickedDate != null) {
                             setState(() {
-                              _startDateController.text = pickedDate.toString();
+                              startDateController.text = pickedDate.toString();
                             });
                           }
                         },
@@ -372,7 +372,7 @@ class _MenusPageState extends State<MenusPage> {
                 TextButton(
                   onPressed: () {
                     _submitNewMenu(
-                        _titleController.text, _startDateController.text, plan);
+                        titleController.text, startDateController.text, plan);
                     Navigator.of(context).pop();
                   },
                   child: const Text('Add'),
@@ -443,7 +443,7 @@ class _MenusPageState extends State<MenusPage> {
 
   String _truncateTitle(String title) {
     if (title.length > 20) {
-      return title.substring(0, 20) + '...';
+      return '${title.substring(0, 20)}...';
     } else {
       return title;
     }
